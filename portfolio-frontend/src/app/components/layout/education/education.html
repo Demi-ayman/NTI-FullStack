@@ -1,0 +1,9 @@
+<div class="container mt-4">
+  <h2>My Education</h2>
+  <ul class="list-group">
+    <li *ngFor="let edu of educations" class="list-group-item">
+      <strong>{{ edu.degree }}</strong> - {{ edu.institution }}
+      ({{ edu.startYear }} - {{ edu.endYear || 'Present' }})
+    </li>
+  </ul>
+</div>
