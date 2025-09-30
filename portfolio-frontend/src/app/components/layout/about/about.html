@@ -1,0 +1,18 @@
+<div class="container my-5">
+  <h2 class="mb-4 text-center">About Me</h2>
+
+  <div *ngIf="errorMessage" class="alert alert-danger text-center">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngFor="let about of aboutList" class="card shadow-sm mb-3">
+    <div class="card-body">
+      <h5 class="card-title">{{ about.name }}</h5>
+      <p class="card-text">{{ about.desc }}</p>
+    </div>
+  </div>
+
+  <div *ngIf="aboutList.length === 0" class="alert alert-info text-center">
+    No about information found.
+  </div>
+</div>

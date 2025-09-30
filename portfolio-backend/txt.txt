@@ -1,0 +1,26 @@
+const express = require("express");
+const mongoose = require("mongoose");
+const home = express()
+const port = 3000;
+const projectRoute = require('./projects');
+const aboutmeRoute = require('./aboutme');
+const contactmeRoute = require('./contactme');
+const skillsRoute = require('./skills');
+const educationRoute = require('./education');
+
+home.use('/skills', skillsRoute);
+home.use('/education', educationRoute);
+
+home.use(express.json());
+home.use(express.json());
+home.use('/projects',projectRoute);
+home.use('/aboutme',aboutmeRoute);
+home.use('/contactme',contactmeRoute);
+home.use('/' ,(req,res)=> 
+{
+  res.status(200).send('Welcome to My Portfolio');
+});
+home.listen(port, () => {
+  console.log(`server started at port ${port}`);
+})
+ 

@@ -1,0 +1,49 @@
+<div class="container my-5">
+  <h2 class="mb-4 text-center">About Me (Admin)</h2>
+
+  <div *ngIf="errorMessage" class="alert alert-danger text-center">{{ errorMessage }}</div>
+
+  <div *ngFor="let about of aboutList" class="card shadow-sm mb-4">
+    <div class="row g-0 align-items-center">
+      <!-- Image
+      <div class="col-md-3 text-center p-3">
+        <img *ngIf="about.image" [src]="about.image" class="img-fluid rounded-circle border" style="max-width:150px; max-height:150px;">
+        <div *ngIf="!about.image" class="bg-secondary text-white rounded-circle d-flex justify-content-center align-items-center" style="width:150px; height:150px;">
+          No Image
+        </div>
+      </div> -->
+
+      <!-- Info / Edit -->
+      <div class="col-md-9 p-3">
+        <!-- Display -->
+        <div *ngIf="editAbout?._id !== about._id">
+          <h4>{{ about.name }}</h4>
+          <p>{{ about.desc }}</p>
+          <button class="btn btn-primary btn-sm" (click)="startEdit(about)">Edit</button>
+        </div>
+
+        <!-- Edit Mode -->
+        <div *ngIf="editAbout?._id === about._id">
+          <div class="mb-2">
+            <label class="form-label">Name</label>
+            <input type="text" [(ngModel)]="editAbout.name" class="form-control">
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Description</label>
+            <textarea [(ngModel)]="editAbout.desc" class="form-control" rows="3"></textarea>
+          </div>
+          <!-- <div class="mb-2">
+            <label class="form-label">Image</label>
+            <input type="file" (change)="onFileSelected($event)" class="form-control">
+          </div> -->
+          <button class="btn btn-success btn-sm me-2" (click)="saveEdit()">Save</button>
+          <button class="btn btn-secondary btn-sm" (click)="cancelEdit()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="aboutList.length === 0" class="alert alert-info text-center">
+    No about information found.
+  </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="container my-5">
+  <h2 class="mb-4 text-center">Projects Management (Admin)</h2>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+  <!-- Add Project Form -->
+  <div class="card mb-4 p-3 shadow-sm">
+    <div class="row g-2">
+      <div class="col-md-3">
+        <input type="text" class="form-control" placeholder="Category" [(ngModel)]="newProject.category">
+      </div>
+      <div class="col-md-3">
+        <input type="text" class="form-control" placeholder="Project Name" [(ngModel)]="newProject.projectName">
+      </div>
+      <div class="col-md-3">
+        <input type="text" class="form-control" placeholder="Description" [(ngModel)]="newProject.desc">
+      </div>
+      <div class="col-md-2">
+        <input type="text" class="form-control" placeholder="GitHub Link" [(ngModel)]="newProject.github">
+      </div>
+      <div class="col-md-1">
+        <button class="btn btn-success w-100" (click)="addProject()">Add</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Projects Table -->
+  <table class="table table-striped table-hover align-middle">
+    <thead class="table-dark">
+      <tr>
+        <th>Category</th>
+        <th>Project Name</th>
+        <th>Description</th>
+        <th>GitHub</th>
+        <th class="text-center">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let project of projects">
+        <td><input [(ngModel)]="project.category" class="form-control"></td>
+        <td><input [(ngModel)]="project.projectName" class="form-control"></td>
+        <td><input [(ngModel)]="project.desc" class="form-control"></td>
+        <td><input [(ngModel)]="project.github" class="form-control"></td>
+        <td class="text-center">
+          <button class="btn btn-primary btn-sm me-1" (click)="updateProject(project._id)">Update</button>
+          <button class="btn btn-danger btn-sm" (click)="deleteProject(project._id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,43 @@
+<!-- contact-admin.component.html -->
+<div class="container my-5">
+  <h2 class="mb-4 text-center">Contact Messages (Admin)</h2>
+
+  <!-- Error message -->
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Table of contacts -->
+  <table class="table table-striped table-hover align-middle">
+    <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Subject</th>
+        <th>Message</th>
+        <th class="text-center">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let contact of contacts">
+        <td>{{ contact.name }}</td>
+        <td>{{ contact.email }}</td>
+        <td>{{ contact.subject }}</td>
+        <td>{{ contact.message }}</td>
+        <td class="text-center">
+          <button
+            class="btn btn-danger btn-sm"
+            (click)="deleteContact(contact._id)"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Empty message -->
+  <div *ngIf="contacts.length === 0" class="alert alert-info text-center mt-3">
+    No contact messages found.
+  </div>
+</div>
