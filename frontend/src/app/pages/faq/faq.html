@@ -1,0 +1,103 @@
+<div class="faq-container">
+  <!-- Header Section -->
+  <div class="faq-header">
+    <h1 class="title">❓ Frequently Asked Questions</h1>
+    <p class="subtitle">Find answers to common questions about our products and services</p>
+  </div>
+
+  <!-- Filters Section -->
+  <div class="filter-bar">
+    <div class="filter-group">
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (input)="applyFilters()"
+        placeholder="Search FAQs..."
+        class="search-input"
+      >
+    </div>
+
+    <div class="filter-group">
+      <select [(ngModel)]="selectedCategory" (change)="applyFilters()" class="filter-select">
+        <option *ngFor="let category of categories" [value]="category.value">
+          {{ category.label }}
+        </option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <button (click)="clearFilters()" class="clear-btn">Clear Filters</button>
+    </div>
+  </div>
+
+  <!-- Results Info -->
+  <div class="results-info">
+    <span class="results-count">
+      Showing {{ filteredFaqs.length }} of {{ faqs.length }} FAQs
+    </span>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading FAQs...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="errorMessage && !loading" class="error-state">
+    <p>{{ errorMessage }}</p>
+    <button (click)="loadFAQs()" class="retry-btn">Try Again</button>
+  </div>
+
+  <!-- FAQ List -->
+  <div *ngIf="!loading && !errorMessage" class="faq-list">
+    <div *ngFor="let faq of filteredFaqs" class="faq-item">
+      <div
+        class="faq-question"
+        (click)="toggleFaq(faq._id)"
+        [class.expanded]="isExpanded(faq._id)"
+      >
+        <div class="question-header">
+          <span class="category-icon">{{ getCategoryIcon(faq.category) }}</span>
+          <h3 class="question-text">{{ faq.question }}</h3>
+        </div>
+        <span class="expand-icon">
+          {{ isExpanded(faq._id) ? '−' : '+' }}
+        </span>
+      </div>
+
+      <div
+        class="faq-answer"
+        [class.show]="isExpanded(faq._id)"
+      >
+        <div class="answer-content">
+          <p>{{ faq.answer }}</p>
+          <div class="faq-meta">
+            <span class="faq-category">{{ faq.category }}</span>
+            <span class="faq-date">Updated {{ formatDate(faq.updatedAt) }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!loading && !errorMessage && filteredFaqs.length === 0" class="empty-state">
+    <div class="empty-icon">❓</div>
+    <h3>No FAQs found</h3>
+    <p>Try adjusting your search or filters</p>
+    <button (click)="clearFilters()" class="primary-btn">Clear All Filters</button>
+  </div>
+
+  <!-- Contact Support Section -->
+  <div *ngIf="!loading && !errorMessage" class="support-section">
+    <div class="support-card">
+      <div class="support-icon">💬</div>
+      <div class="support-content">
+        <h3>Still have questions?</h3>
+        <p>Can't find the answer you're looking for? Please contact our support team.</p>
+        <button class="support-btn" routerLink="/contact">Contact Support</button>
+      </div>
+    </div>
+  </div>
+</div>

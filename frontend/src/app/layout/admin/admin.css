@@ -1,0 +1,54 @@
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f8f9fa;
+}
+
+.sidebar {
+  width: 250px;
+  background: #2c3e50;
+  color: white;
+  padding: 20px 0;
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.sidebar h2 {
+  text-align: center;
+  margin: 0 0 30px 0;
+  padding: 0 20px;
+  font-size: 1.5rem;
+  color: #ecf0f1;
+}
+
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar a {
+  color: #bdc3c7;
+  text-decoration: none;
+  padding: 12px 20px;
+  transition: all 0.3s;
+  border-left: 3px solid transparent;
+}
+
+.sidebar a:hover {
+  background: #34495e;
+  color: white;
+  border-left-color: #3498db;
+}
+
+.sidebar a.router-link-active {
+  background: #34495e;
+  color: white;
+  border-left-color: #3498db;
+}
+
+.content {
+  flex: 1;
+  margin-left: 250px;
+  min-height: 100vh;
+}

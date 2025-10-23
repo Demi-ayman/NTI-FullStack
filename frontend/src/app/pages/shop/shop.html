@@ -1,0 +1,63 @@
+<div class="shop-container">
+  <h1 class="title">🛍️ Our Products</h1>
+
+  <!-- Filters Section -->
+  <div class="filter-bar">
+    <input
+      type="text"
+      placeholder="🔍 Search products..."
+      [(ngModel)]="searchTerm"
+      (input)="applyFilters()"
+    />
+
+    <select [(ngModel)]="selectedCategory" (change)="applyFilters()">
+      <option value="">All Categories</option>
+      <option *ngFor="let c of categories" [value]="c._id">{{ c.name }}</option>
+    </select>
+<!--
+    <select [(ngModel)]="selectedSubcategory" (change)="applyFilters()">
+      <option value="">All Subcategories</option>
+      <option *ngFor="let s of subscategories" [value]="s._id">{{ s.name }}</option>
+    </select> -->
+
+    <div class="price-range">
+      <label>💰 Price:</label>
+      <input type="number" [(ngModel)]="priceRange.min" (change)="applyFilters()" placeholder="Min" />
+      <span>–</span>
+      <input type="number" [(ngModel)]="priceRange.max" (change)="applyFilters()" placeholder="Max" />
+    </div>
+
+    <select [(ngModel)]="sortBy" (change)="applyFilters()">
+      <option value="name">Sort by Name</option>
+      <option value="price">Sort by Price</option>
+      <option value="createdAt">Newest</option>
+    </select>
+
+    <button class="clear-btn" (click)="clearFilters()">Reset</button>
+  </div>
+
+  <!-- Products Section -->
+  <div *ngIf="loading" class="loading">Loading products...</div>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+
+  <div class="products-grid">
+    <div class="product-card" *ngFor="let product of filteredProducts; trackBy: trackById">
+      <img
+        [src]="staticURL + product.imgURL"
+        alt="{{ product.name }}"
+        class="product-image"
+        (error)="handleImageError($event)"
+      />
+
+      <div class="product-info">
+        <h2 class="product-name">{{ product.name }}</h2>
+        <p class="product-description">{{ truncateText(product.description, 90) }}</p>
+
+        <div class="product-bottom">
+          <span class="price">{{ product.price | currency:'USD' }}</span>
+          <button class="add-btn" (click)="addToCart(product)">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
